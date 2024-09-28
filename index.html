@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Counting Up to Set Time with Late Time</title>
+    <title>Bedtime</title>
     <style>
         body, html {
             height: 100%;
@@ -74,7 +74,7 @@
 </head>
 <body>
     <div class="center">
-        <h1 id="message">Sleep time</h1>
+        <h1 id="message">Bedtime</h1>
         <div id="countdown">00:00:00</div>
         <div id="footer">Made By Phoomphat</div>
         <div id="late">Late : 00:00:00</div>
@@ -87,7 +87,7 @@
     <script>
         let countdownNumber = 0;
         let targetTime = 0;
-        const lateTime = 2 * 60 * 60;
+        const lateTime = 24 * 60 * 60;
         const countdownElement = document.getElementById('countdown');
         const messageElement = document.getElementById('message');
         const lateElement = document.getElementById('late');
@@ -95,7 +95,7 @@
         let currentSleepingIndex = 0;
         let countdownInterval;
         let lateInterval;
-        let messageInterval; // เพิ่มตัวแปรเพื่อเก็บการเปลี่ยนข้อความ
+        let messageInterval;
 
         function formatTime(seconds) {
             const hours = Math.floor(seconds / 3600);
@@ -141,32 +141,32 @@
                     }
 
                     if (messageInterval) {
-                        clearInterval(messageInterval); // หยุดการเปลี่ยนข้อความ
+                        clearInterval(messageInterval);
                     }
 
                     changeSleepingMessage();
                     startCountdown();
-                    startButton.textContent = 'Stop'; // เปลี่ยนปุ่มเป็น Stop
+                    startButton.textContent = 'Stop';
                 } else {
                     alert("Please enter a valid time.");
                 }
             } else {
                 clearInterval(countdownInterval);
                 clearInterval(lateInterval);
-                clearInterval(messageInterval); // หยุดการเปลี่ยนข้อความ
+                clearInterval(messageInterval);
                 countdownElement.textContent = '00:00:00';
                 lateElement.textContent = 'Late : 00:00:00';
                 hoursInput.value = '';
                 minutesInput.value = '';
                 secondsInput.value = '';
-                startButton.textContent = 'Start'; // เปลี่ยนปุ่มกลับเป็น Start
-                messageElement.textContent = 'Sleep time'; // รีเซ็ตข้อความ
-                currentSleepingIndex = 0; // รีเซ็ตดัชนีข้อความนอน
+                startButton.textContent = 'Start';
+                messageElement.textContent = 'Bedtime';
+                currentSleepingIndex = 0;
             }
         });
 
         function changeSleepingMessage() {
-            messageInterval = setInterval(() => { // ใช้ messageInterval เพื่อเก็บการเปลี่ยนข้อความ
+            messageInterval = setInterval(() => {
                 messageElement.textContent = sleepingMessages[currentSleepingIndex];
                 currentSleepingIndex = (currentSleepingIndex + 1) % sleepingMessages.length;
             }, 500);
@@ -181,8 +181,8 @@
                 if (countdownNumber >= targetTime) {
                     messageElement.textContent = 'Get Up!!';
                     clearInterval(countdownInterval);
-                    clearInterval(messageInterval); // หยุดการเปลี่ยนข้อความเมื่อถึง "Get Up!!"
-                    currentSleepingIndex = 0; // รีเซ็ตดัชนีข้อความนอน
+                    clearInterval(messageInterval);
+                    currentSleepingIndex = 0;
                     lateElement.textContent = `Late : ${formatTime(0)}`;
                     let lateSeconds = 0;
 
