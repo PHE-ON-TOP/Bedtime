@@ -129,7 +129,7 @@
 
             if (startButton.textContent === 'Start') {
                 if (targetTime > 0) {
-                    countdownNumber = 0;
+                    countdownNumber = targetTime;
                     countdownElement.textContent = formatTime(countdownNumber);
 
                     if (countdownInterval) {
@@ -174,11 +174,11 @@
 
         function startCountdown() {
             countdownInterval = setInterval(() => {
-                countdownNumber++;
+                countdownNumber--;
 
                 countdownElement.textContent = formatTime(countdownNumber);
 
-                if (countdownNumber >= targetTime) {
+                if (countdownNumber <= 0) {
                     messageElement.textContent = 'Get Up!!';
                     clearInterval(countdownInterval);
                     clearInterval(messageInterval);
